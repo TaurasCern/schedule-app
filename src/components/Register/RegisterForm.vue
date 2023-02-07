@@ -1,6 +1,5 @@
 <template>
-    <div class="error" v-if="error">{{ error }}</div>
-    <form @submit.prevent="login">
+    <form @submit.prevent="register">
         <div class="form-input">
             <label>Email</label>
             <input type="text" v-model="email">
@@ -9,15 +8,19 @@
             <label>Password</label>
             <input type="password" v-model="password">
         </div>
-        <input type="button" @click="login()" value="Log in">
+        <div class="form-input">
+            <label>Repeat password</label>
+            <input type="password" v-model="password">
+        </div>
+        <input type="button" @click="register()" value="Register">
     </form>
 </template>
 <script lang="ts">
     import { defineComponent } from 'vue'
-    import router from '../router';
+    import router from '../../router';
 
     export default defineComponent({
-        name: `LoginForm`,
+        name: `RegisterForm`,
         components: {},
         data() {
             return {
@@ -27,8 +30,8 @@
             };
         },
         methods: {
-            async login() {
-                let response = await fetch(`http://localhost:5208/api/Login`, {
+            async register() {
+                let response = await fetch(`http://localhost:5208/api/Register`, {
                     method: `POST`,
                     headers: {
                         'Accept': 'application/json',
@@ -41,25 +44,12 @@
                 });
                 
                 if(response.ok){
-                    let json = await response.json();
-                    localStorage.setItem(`role`, json.role);
-                    localStorage.setItem(`token`, json.token);
-                    router.push({ name: 'Home' })
+                    router.push({ name: 'RegistrationSuccess' })
                 }
                 else {
-                    this.$data.error = `Email does not exist or wrong password.`;
+                    this.$data.error = `Password has to 7-20 characters long.`;
                 }
             }
         },
     })
 </script>
-
-<style scoped>
-    .error {
-        display: inline-block;
-        background-color: rgb(233, 95, 95);
-        padding: 5px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-    }
-</style>
