@@ -44,7 +44,7 @@
                     let json = await response.json();
                     localStorage.setItem(`role`, json.role);
                     localStorage.setItem(`token`, json.token);
-                    router.push({ name: 'Home' })
+                    router.push({ name: 'Dashboard' })
                 }
                 else {
                     this.$data.error = `Email does not exist or wrong password.`;
