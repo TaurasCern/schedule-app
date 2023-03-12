@@ -1,6 +1,7 @@
 <template>
   <header v-if="isLoggedIn">
     <router-link :to="{ name: 'Home' }">Home</router-link>
+    <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
     <a @click="logout()" href="">Logout</a>
   </header>
   <header v-else>
@@ -13,7 +14,7 @@
     import { defineComponent } from 'vue'
 
     export default defineComponent({
-      name: `PageHeader`,
+      name: `NavBar`,
       data() {
         return {
           isLoggedIn: localStorage.token ? true : false
