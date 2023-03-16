@@ -1,6 +1,6 @@
 <template>
   <NavBar :key="$route.fullPath"/>
-  <router-view/>
+  <router-view class="content"/>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'
@@ -19,4 +19,9 @@
   text-align: center;
   color: #2c3e50;
 }
+</style>
+<style scoped>
+  .content {
+    margin-left: 200px;
+  }
 </style>
