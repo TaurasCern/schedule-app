@@ -1,5 +1,5 @@
 <template>
-    <form class="note-container" @submit.prevent="postNote">
+    <form class="note-form-container" @submit.prevent="postNote">
         <b>New note</b>
         <div class="form-input" id="note-input">
             <label>Note:</label>
@@ -49,10 +49,10 @@
                     body: JSON.stringify(scheduleNote),
                 });
                 if(response.ok){
-                    console.log(`ok`);
+                    this.$emit(`posted`, await response.json())
                 }
                 else {
-                    console.log(`nok ok`);
+                    console.log(response.status);
                     
                 }
             }
@@ -60,7 +60,7 @@
     })
 </script>
 <style scoped>
-    .note-container{
+    .note-form-container{
         display: inline-flex;
         flex-flow: column;
         background-color: #baf3bb;

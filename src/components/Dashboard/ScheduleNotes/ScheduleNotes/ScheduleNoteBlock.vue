@@ -1,13 +1,14 @@
 <template>
-    <div class="note-container">
+    <div class="note-container" :id="id?.toString()">
+        <div class="note">
+            <b>Note:</b> 
+            {{ note }}
+        </div>
         <div>
             From: {{ from?.toLocaleDateString() + ` - ` + from?.getHours() + `:` + from?.getMinutes() }}
         </div>
         <div>
             To: {{ to?.toLocaleDateString() + ` - ` + to?.getHours() + `:` + to?.getMinutes() }}
-        </div>
-        <div>
-            Note: {{ note }}
         </div>
     </div>
 </template>
@@ -17,6 +18,7 @@
     export default defineComponent({
         name: `ScheduleNotes`,
         props: {
+            id: Number,
             from: Date,
             to: Date,
             note: String,
@@ -31,5 +33,10 @@
         width: 280px;
         height: 160px;
         margin: 10px;
+    }
+    .note {
+        display: flex;
+        flex-flow: column;
+        background-color: aliceblue;
     }
 </style>

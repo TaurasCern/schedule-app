@@ -1,9 +1,10 @@
 <template>
     <article>
-        <ScheduleNoteForm/>
+        <ScheduleNoteForm @posted="onPost"/>
         <ScheduleNoteBlock 
         v-for="note in $data.notes"
         :key="note.id"
+        :id="note.id"
         :from="new Date(note.from)"
         :to="new Date(note.to)"
         :note="note.note"/>
@@ -44,8 +45,11 @@
                     this.notes = await response.json();              
                 }
                 else{
-                    console.log(`not ok`);
+                    console.log(response.status);
                 }
+            },
+            async onPost(note: ScheduleNote) {
+                this.notes.push(note)
             }
         }
     })
