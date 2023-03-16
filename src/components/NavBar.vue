@@ -1,5 +1,6 @@
 <template>
   <header v-if="isLoggedIn">
+    <router-link :to="{ name: 'Home' }">Home</router-link>
     <router-link :to="{ name: 'Dashboard' }">Dashboard</router-link>
     <a @click="logout()" href="" class="last-item">Logout</a>
   </header>
