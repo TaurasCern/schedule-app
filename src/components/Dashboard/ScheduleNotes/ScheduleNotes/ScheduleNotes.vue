@@ -7,7 +7,8 @@
         :id="note.id"
         :from="new Date(note.from)"
         :to="new Date(note.to)"
-        :note="note.note"/>
+        :note="note.note"
+        @deleted="onDelete"/>
     </article>
 </template>
 <script lang="ts">
@@ -22,8 +23,6 @@
 
         data() {
             return {
-                from: (new Date()).toISOString().substring(0,16),
-                to: (new Date()).toISOString().substring(0,16),
                 note: `` as string,
                 notes: [] as ScheduleNote[],
             }
@@ -32,7 +31,7 @@
             this.fetchNotes();
         },
         methods: {
-            async fetchNotes() {     
+            async fetchNotes() {              
                 let response = await fetch(`http://localhost:5208/api/ScheduledTime`,{
                     method: `GET`,
                     headers: {
@@ -50,6 +49,10 @@
             },
             async onPost(note: ScheduleNote) {
                 this.notes.push(note)
+            },
+            async onDelete(id: string) {
+                let index = this.notes.map(note => note.id).indexOf(parseInt(id));
+                this.notes.splice(index, 1)
             }
         }
     })
